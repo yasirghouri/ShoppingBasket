@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 
 import IngredientForm from "./IngredientForm";
 import IngredientList from "./IngredientList";
@@ -7,33 +7,19 @@ import Search from "./Search";
 
 const Ingredients = () => {
   const [userIngredients, setUserIngredients] = useState([]);
+
   useEffect(() => {
-    fetch(db)
-      .then((response) => response.json())
-      .then((responseData) => {
-        // console.log(responseData);
-        const loadedIngredients = [];
-        for (const key in responseData) {
-          // console.log(responseData[key].ingredient);
-          loadedIngredients.push({
-            id: key,
-            title: responseData[key].ingredient.title,
-            amount: responseData[key].ingredient.amount,
-          });
-        }
-        setUserIngredients(loadedIngredients);
-        // console.log(loadedIngredients);
-      });
+    console.log("Rendering Ingredients", userIngredients);
+  }, [userIngredients]);
+
+  const filteredIngredientsHandler = useCallback((filteredIngredients) => {
+    setUserIngredients(filteredIngredients);
   }, []);
 
-  const filteredIngredientsHandler = (filteredIngredients) => {
-    setUserIngredients(filteredIngredients);
-  };
-
   const addIngredientHandler = (ingredient) => {
-    fetch(db, {
+    fetch(db + ".json", {
       method: "POST",
-      body: JSON.stringify({ ingredient }),
+      body: JSON.stringify(ingredient),
       headers: { "Content-Type": "application/json" },
     })
       .then((response) => {
@@ -51,11 +37,15 @@ const Ingredients = () => {
   };
 
   const removeIngredientHandler = (ingredientId) => {
-    setUserIngredients((prevIngredient) =>
-      prevIngredient.filter((ingredient) => {
-        return ingredient.id !== ingredientId;
-      })
-    );
+    fetch(`${db}/${ingredientId}.json`, {
+      method: "DELETE",
+    }).then((response) => {
+      setUserIngredients((prevIngredient) =>
+        prevIngredient.filter((ingredient) => {
+          return ingredient.id !== ingredientId;
+        })
+      );
+    });
   };
   return (
     <div className="App">
