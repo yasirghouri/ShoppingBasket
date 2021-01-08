@@ -5,9 +5,9 @@ It is a usefull app for keeping record of ingredients that you've bought while s
 
 ## Features
 
-> You can Add ingredients.
-> You can Remove ingredients.
-> You can Search for ingredients present in your list.
+1. You can Add ingredients.
+2. You can Remove ingredients.
+3. You can Search for ingredients present in your list.
 
 ## Technology
 
