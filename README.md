@@ -5,13 +5,13 @@ It is a usefull app for keeping record of ingredients that you've bought while s
 
 ## Features
 
-You can Add ingredients.
-You can Remove ingredients.
-You can Search for ingredients present in your list.
+> You can Add ingredients.
+> You can Remove ingredients.
+> You can Search for ingredients present in your list.
 
 ## Technology
 
-React
-Firebase
-React Hooks
-Context API
+- React
+- Firebase
+- React Hooks
+- Context API
